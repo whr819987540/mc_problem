@@ -75,9 +75,16 @@ def main(M_number, C_number, boat_capacity):
     print(paths)
 
     for path in paths:
-        for node in path:
-            print(f"{graph_states[node]}", end="=>")
-        print()
+        print(f"{graph_states[path[0]]}",end="")
+        for i in range(1,len(path)):
+            node = graph_states[path[i]]
+            previous_node = graph_states[path[i-1]]
+            if node[2]==0:
+                operator = [node[0]-previous_node[0],node[1]-previous_node[1],0]
+            else:
+                operator = [previous_node[0]-node[0],previous_node[1]-node[1],1]
+            print(f" ={tuple(operator)}=> {node}",end="")
+        print("\n")
 
 
 def DFS(pwd_index, end_index, graph: torch.tensor, path: list, paths: List[list]):
